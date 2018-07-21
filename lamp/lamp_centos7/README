@@ -1,0 +1,7 @@
+# 安装说明
+# 该安装包环境Centos7.2 64bit 
+# 包含了apache2.4 mysql 5.5.40 php5.6.30
+# 详细源码包见lamp.tar.gz
+# 安装步骤：运行脚本lamp.sh
+# 本安装包达到的效果：基本的lamp架构，所有服务均为开机自行启动，并添加了mongodb扩展
+# 安装完成后访问地址ip/index.php查看详细参数
