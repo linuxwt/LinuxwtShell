@@ -1,0 +1,14 @@
+vi /usr/lib/systemd/system/mysql.service  
+[Unit]
+Description=mysql  
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking  
+ExecStart=/usr/local/mysql/support-files/mysql.server start  
+#ExecReload=/usr/local/mysql/support-files/mysql.server restart
+#ExecStop=/usr/local/mysql/support-files/mysql.server stop
+#PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

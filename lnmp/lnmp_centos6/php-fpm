@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# chkconfig: - 85 15
+# description: a Fastcgi Process Manager
+
+# php-fpm的pid文件路径、conf文件路径、执行路径
+php_command=/usr/local/php/sbin/php-fpm
+php_config=/etc/php-fpm.conf
+php_pid=/usr/local/php/var/run/php-fpm.pid
+# prog的值要和执行命令php-fpm一致
+prog="php-fpm" 
+RETVAL=0
+# 启用functions
+. /etc/rc.d/init.d/functions
+# 开启网络 
+. /etc/sysconfig/network
+
+# 检测网络 
+[ ${NETWORKING} = "no" ] && exit 0
+[ -x ${php_command} ] || exit 0
+
+# 创建启动、停止、重载
+start() {
+	if [ -e ${php_pid} ];then
+		echo -n "php-fpm already running..."
+		exit 1
+	fi
+	# daemon 启动php-fpm
+	echo -n "Startingprog: "
+        daemon	${php_command}
+       #daemon ${php_command} -c ${php_config}
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/php-fpm
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stoppingprog: "
+	killproc ${php_command}
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/php-fpm /usr/local/php/var/run/php-fpm.pid
+}  
+
+reload() {
+	echo -n "Reloadingprog: "
+	# kill -HUP `cat ${php_pid}`
+	killproc ${php_command} -HUP
+	RETVAL=$?
+	echo
+}
+
+# See how we were called
+case "$1" in
+start)
+	start
+	;;
+stop)
+	stop
+	;;
+reload)
+	reload
+	;;
+restart)
+	stop
+	start
+	;;
+status)
+	status $prog
+	RETVAL=$?
+	;;
+*)
+	echo "Usage:prog {start|stop|restart|reload|status|help}"
+	exit 1
+esac
+exit $RETVAL
+
