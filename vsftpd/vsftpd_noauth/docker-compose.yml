@@ -14,7 +14,7 @@ ftp_genenome:
    environment:
       - FTP_USER=ftp
       - FTP_PASS=
-      - PASV_ADDRESS=118.31.187.165
+      - PASV_ADDRESS=你的服务器公网ip
       - PASV_MIN_PORT=3000
       - PASV_MAX_PORT=3050
 
