@@ -2,5 +2,5 @@
 # 环境 系统 centos6.8 64 nginx1.8.1 mysql 5.5.40 php 5.6.30 均为源码安装
 # 本环境分为有7个脚本,一个压缩包（包含依赖和应用）
 # 安装只需要运行lnmp.sh即可，其他脚本均为此脚本调用
-  
+详细部署文档参考我的博客 https://linuxwt.com/2017/08/03/centos7shang-yuan-ma-an-zhuang-da-jian-lnmp/  
 
