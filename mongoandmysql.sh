@@ -2,7 +2,7 @@
 
 # 一键以docker自动部署mongo单点服务和mysql单点服务并创建库用户同时进行用户验证
 # 本脚本在centos7.5上测试通过
-# 本脚本需要带上$1-$7的参数，分别表示
+# 本脚本需要带上$1-$8参数，分别表示
 # $1 mongodb的admin库的库用户
 # $2 admin库的用户密码
 # $3 创建一个项目库，mysql和mongo均使用该库名
@@ -11,6 +11,7 @@
 # $6 mysql的远程root和本地root密码
 # $7 mysql项目库用户
 # $8 mysql的项目库用户密码
+
 
 
 # 第一阶段：准备工作
@@ -107,10 +108,6 @@ fi
 
 
 
-
-
-
-
 # 第二阶段：通过Dockerfile来构建mongo3.6镜像、启用非认证的mongo容器、创建mongo库用户、验证mongo库用户、启用认证的mongo容器
 # 拉取mysql5.7镜像、启用mysql容器、创建mysql库用户、验证mysql库用户
 # 构建mongo镜像
@@ -185,7 +182,6 @@ source /etc/profile
 # 创建admin库用户授予读写权限并验证、创建项目库linuxwt的用户授予读写权限并验证
 docker exec -it mongo_linuxwt mongo admin --eval "db.createUser({user:\"$1\", pwd:\"$2\", roles:[{role:\"root\", db:\"admin\"},{role:\"clusterAdmin\",db:\"admin\"}]})"
 docker exec -it mongo_linuxwt mongo $3 --eval "db.createUser({user:\"$4\", pwd:\"$5\", roles:[{role:\"root\", db:\"admin\"},{role:\"clusterAdmin\",db:\"admin\"}]})"
-
 # 进行验证需要获得服务器的网络地址
 ip_netmask=$(ip addr | grep 'ens32' | grep 'inet' | awk '{print $2}')
 ip=${ip_netmask:0:8}
@@ -230,8 +226,7 @@ docker pull mysql:5.7
 mysql_dir="/data/gooalgene/mysql"
 mysql_dir="/data/gooalgene/mysql"
 if [ ! -d ${mysql_dir}/mysql ];then
-        mkdir -p ${mysql_dir}/mysql
-	
+        mkdir -p ${mysql_dir}/mysql	
 else
 	mv ${mysql_dir}/mysql  ${mysql_dir}/mysql.bak
 	mkdir -p ${mysql_dir}/mysql
@@ -280,7 +275,6 @@ echo "max_allowed_packet=200M" >> mysqld.cnf
 echo "server-id=1" >> mysqld.cnf
 echo "log_bin=mysql-bin" >> mysqld.cnf
 echo "general-log=1" >> mysqld.cnf
-
 # 启动mysql容器
 docker-compose up -d
 if [ $? -eq 0 ];then
