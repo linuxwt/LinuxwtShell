@@ -1,6 +1,7 @@
 该项目是通过docker-compose来搭建vsftpd服务从而实现的匿名用户访问，注意我们拉取的镜像是fauria/vsftpd
 包含了docker-compose.yml、映射的配置文件vsftpd.conf以及共享目录vsftpd
 注意docker-compose.yml文件下面的volumes下面映射的目录，在宿主机建立相应的目录
-
+chmod 777 vsftpd.log  
+chmod 777 xferlog
 
 
