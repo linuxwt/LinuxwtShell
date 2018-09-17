@@ -7,6 +7,8 @@ ftp_genenome:
       - $PWD/vsftpd.conf:/etc/vsftpd/vsftpd.conf
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/tomezone
+      - $PWD/vsftpd.log:/var/log/vsftpd.log
+      - $PWD/xferlog:/var/log/xferlog
    ports:
       - "21:21"
       - "20:20"
