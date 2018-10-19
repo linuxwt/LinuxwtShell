@@ -4,8 +4,8 @@
 CONTAINER_NAME="mysql_bgi"
 DIR=`date +%Y%m%d`
 BACKDIR="/data/bak/"
-USER='bgi'
-PASSWD='Bgi@gooalgene333'
+USER='username'
+PASSWD='password'
 DBNAME='bgi'
 LOG="/data/bak/backup.log"
 TIME1=`date +%Y%m%d_%R`
