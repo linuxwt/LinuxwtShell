@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 本脚本用于容器部署的mysql备份
 CONTAINER_NAME="mysql_bgi"
 DIR=`date +%Y%m%d`
 BACKDIR="/data/bak/"
