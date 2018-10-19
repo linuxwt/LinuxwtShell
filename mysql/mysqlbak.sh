@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # 本脚本用于容器部署的mysql备份
-CONTAINER_NAME="mysql_bgi"
+CONTAINER_NAME="mysql_linuxwt"
 DIR=`date +%Y%m%d`
 BACKDIR="/data/bak/"
 USER='username'
 PASSWD='password'
-DBNAME='bgi'
+DBNAME='dbname'
 LOG="/data/bak/backup.log"
 TIME1=`date +%Y%m%d_%R`
-#MONGODIR="/data/gooal/mongo/mongo"
 >$LOG
 
 docker exec  ${CONTAINER_NAME} mysql -u$USER -p$PASSWD -e'use bgi;flush logs';
