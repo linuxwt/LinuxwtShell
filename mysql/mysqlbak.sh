@@ -11,8 +11,8 @@ LOG="/data/bak/backup.log"
 TIME1=`date +%Y%m%d_%R`
 >$LOG
 
-docker exec  ${CONTAINER_NAME} mysql -u$USER -p$PASSWD -e'use bgi;flush logs';
-docker exec  ${CONTAINER_NAME} mysqldump  -u$USER -p$PASSWD  $DBNAME > $BACKDIR/mysql_bgi_${TIME1}.sql
+docker exec  ${CONTAINER_NAME} mysql -u$USER -p$PASSWD -e'use dbname;flush logs';
+docker exec  ${CONTAINER_NAME} mysqldump  -u$USER -p$PASSWD  $DBNAME > $BACKDIR/mysql_dbname_${TIME1}.sql
 
 if [ $? -eq  0 ];then
     TIME2=`date +%Y%m%d_%R`
