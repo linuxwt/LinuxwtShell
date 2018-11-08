@@ -32,5 +32,5 @@ export JAVA_HOME=/data/gooalgene/java/jdk1.8 MAVEN_HOME=/data/gooalgene/java/mav
 export CLASSPATH=.:\$JAVA_HOME/jre/lib/rt.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
 export PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH 
 EOF
-source /etc/profile
+
 
