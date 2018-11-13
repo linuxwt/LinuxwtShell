@@ -69,3 +69,8 @@ echo {\"registry-mirrors\":[\"https://nr630v1c.mirror.aliyuncs.com\"]} > /etc/do
 
 # 安装常用工具
 yum -y install lrzsz && yum -y install openssh-clients && yum -y install telnet && yum -y install rsync 
+
+# 防火墙配置
+setenforce 0
+sed -i 's/enforcing/disabled/g' /etc/selinux/config
+sed -i 's/enforcing/disabled/g' /etc/sysconfig/selinux
