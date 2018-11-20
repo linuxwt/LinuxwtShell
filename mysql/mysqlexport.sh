@@ -5,6 +5,7 @@ dbname="$1"
 container_name="$2"
 username1="$3"
 password1="$4"
+# yingshe_dir为安全目录映射的目录
 yingshe_dir="$5"
 
 # 获取需要导出的表
