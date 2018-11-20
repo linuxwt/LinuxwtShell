@@ -8,8 +8,8 @@ password1="$4"
 yingshe_dir="$5"
 
 # 获取需要导出的表
-#table_name=$(docker exec ${container_name} mysql -u${username1} -p${password1} -e "use ${dbname};show tables" | grep -v ^Tables_in)
-table_name=$(docker exec ${container_name} mysql -u${username1} -p${password1} -e "use ${dbname};show tables" | grep indel)
+table_name=$(docker exec ${container_name} mysql -u${username1} -p${password1} -e "use ${dbname};show tables" | grep -v ^Tables_in)
+# table_name=$(docker exec ${container_name} mysql -u${username1} -p${password1} -e "use ${dbname};show tables" | grep indel)
 
 # 获取备份的mysql的安全目录
 secure_dir=$(docker exec ${container_name} mysql -u${username1} -p${password1} -e "show variables like '%secure%';" | grep 'priv' | awk '{print $2}')
