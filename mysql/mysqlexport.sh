@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 1 ];then
+if [ $# -ne 5 ];then
         echo "sorry,you need enter the 备份库名 容器名 连接用户 密码 安全目录映射的目录 of the scripts"
         exit -1
 fi
