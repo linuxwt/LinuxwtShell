@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 1 ];then
+if [ $# -ne 7 ];then
         echo "sorry,ou need enter the 导入库名 宿主机IP 宿主机映射端口 用户 密码 容器名 安全目录映射目录 of the scripts."
         exit -1
 fi
