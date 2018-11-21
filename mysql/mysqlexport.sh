@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ $# -lt 1 ];then
+        echo "sorry,you need enter the 备份库名 容器名 连接用户 密码 安全目录映射的目录 "
+        exit -1
+fi
 # 变量设定
 dbname="$1"
 container_name="$2"
