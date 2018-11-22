@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# the script is for caculate the datanumber of every database.
 # set variables
 container_name="$1"
 username="$2"
