@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# set arguments
+# set variables
 container_name="$1"
 username="$2"
 password="$3"
+
 database_name=$(docker exec dbmysql mysql -uroot -pgooalgene@123 -e "show databases;" | grep -v Database)
 echo "${database_name}" > database.txt
 database_array=(${database_name})
