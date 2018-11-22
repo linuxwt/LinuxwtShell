@@ -32,10 +32,25 @@ for table in ${table_array[@]}
 do
 # 导入表结构
 mysql -u ${username2} -h ${Host}  -p${password2} -P ${port} ${dbname} <  ${yingshe_dir}/${dbname}/${table}.sql
+
+# 查看表是否有外键
+foreign_num=$(docker exec ${container_name} mysql -u${username2} -p${password2} -e "use ${dbname};show create table ${table}"  | grep FOREIGN | wc -l)
+
+if [ ${foreign_num} -eq 0 ];then
 # 导入表数据
 docker exec ${container_name} mysql -u${username2} -p${password2} -e "use ${dbname};LOAD DATA INFILE '${secure_dir}/${dbname}/${table}.txt' INTO TABLE ${table} FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'  LINES TERMINATED BY '\n';"
+else
+echo "${table}" >> ${yingshe_dir}/${dbname}/foreign_table 
+fi
 done
 
+#获取具有外键的表
+foreign_table_name=$(cat ${yingshe_dir}/${dbname}/foreign_table)
+foreign_table_name_array=(${foreign_table_name})
+for foreign in ${foreign_table_name_array[@]}
+do
+docker exec ${container_name} mysql -u${username2} -p${password2} -e "use ${dbname};LOAD DATA INFILE '${secure_dir}/${dbname}/${foreign}.txt' INTO TABLE ${foreign} FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'  LINES TERMINATED BY '\n';"
+done
 # 导入时间计算
 if [ $? -eq  0 ];then
     TIME2=$(date +%Y%m%d_%R)
