@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tomcat_dir="/data/gooalgene/dbs/java"
+tomcat_dir="/data/gooalgene/java"
 if [ ! -d ${tomcat_dir} ];then
     mkdir -p ${tomcat_dir}
 else
