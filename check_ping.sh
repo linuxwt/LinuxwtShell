@@ -19,12 +19,10 @@ else
 fi
 done
 prog=$(cat state.txt | grep  done | wc -l)
-mail=(mailaddress1 mailaddress2 mailaddress3 mailaddress4)
-for mailaddress in ${mail[@]}
 if [ ${prog} -eq 0 ];then
     echo  "all servers are ok!" > result.txt
-    echo -e "`cat result.txt`" | mail -s "all servers"  ${mailaddress}
+    echo -e "`cat result.txt`" | mail -s "all servers"  邮箱名
 else
     result=$(cat state.txt | grep  done)
-    echo "${result}" | mail -s "${ip2}" ${mailaddress}
+    echo "${result}" | mail -s "${ip2}"  邮箱名
 fi
