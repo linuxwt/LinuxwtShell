@@ -27,7 +27,11 @@ docker version
 if [ $? -eq 127 ];then
         echo "we can install docker-ce"
         sleep 5
-        installdocker
+        installdocker1
+        if [ $? -ne 0 ];then
+            echo "you should use aliyun image."
+            installdocker2
+        fi
         docker version
         if [ $? -lt 127 ];then
                 echo "the installation of docker-ce is ok."
