@@ -113,7 +113,7 @@ mv apache-maven-3.5.4 maven3.5
 # 加入环境变量
 cp /etc/profile /etc/profile.bak
 cat <<EOF>> /etc/profile
-export JAVA_HOME=/\${project_dir}/gooalgene/java/jdk1.8 MAVEN_HOME=/\${project_dir}/gooalgene/java/maven3.5
+export JAVA_HOME=/${project_dir}/gooalgene/java/jdk1.8 MAVEN_HOME=/${project_dir}/gooalgene/java/maven3.5
 export CLASSPATH=.:\$JAVA_HOME/jre/lib/rt.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
 export PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH 
 EOF
