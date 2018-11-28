@@ -4,7 +4,7 @@ project_dir="$1"
 # 更换yum源并安装docker、docker-compose
 yum -y install wget
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
-wget wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
+wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 mv CentOS7-Base-163.repo /etc/yum.repos.d/CentOS-Base.repo
 yum clean all && yum makecache && yum -y update
 # 安装docker18.03与docker-compose  
