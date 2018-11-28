@@ -8,13 +8,20 @@ wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 mv CentOS7-Base-163.repo /etc/yum.repos.d/CentOS-Base.repo
 yum clean all && yum makecache && yum -y update
 # 安装docker18.03与docker-compose  
-installdocker()
+installdocker1()
 {
         yum -y install yum-utils device-mapper-persistent-data lvm2
         yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
         yum-config-manager --enable docker-ce-edge
         yum-config-manager --enable docker-ce-test
         yum -y install docker-ce
+}
+installdocker2()
+{
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager  --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum makecache fast
+yum -y install docker-ce
 }
 docker version
 if [ $? -eq 127 ];then
