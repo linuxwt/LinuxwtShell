@@ -10,7 +10,7 @@ yum clean all && yum makecache && yum -y update
 # 安装docker18.03与docker-compose  
 installdocker()
 {
-        yum -y install yum-utils device-mapper-persistent-${project_dir} lvm2
+        yum -y install yum-utils device-mapper-persistent-data lvm2
         yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
         yum-config-manager --enable docker-ce-edge
         yum-config-manager --enable docker-ce-test
