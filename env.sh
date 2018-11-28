@@ -81,11 +81,6 @@ if [ $? -eq 0 ];then
 fi
 # 配置docker加速拉取
 echo {\"registry-mirrors\":[\"https://nr630v1c.mirror.aliyuncs.com\"]} > /etc/docker/daemon.json
-# 更改docker存储位置
-#cp -r /var/lib/docker /${project_dir}
-#rm -Rf /var/lib/docker
-#ln -s /${project_dir}/docker /var/lib/docker
-#systemctl restart docker
 
 # 安装常用工具
 yum -y install lrzsz && yum -y install openssh-clients && yum -y install telnet && yum -y install rsync 
@@ -107,6 +102,11 @@ else
     mv ${tomcat_dir} ${tomcat_dir}.bak
     mkdir -p ${tomcat_dir}
 fi
+# 更改docker存储位置
+cp -r /var/lib/docker /${project_dir}
+rm -Rf /var/lib/docker
+ln -s /${project_dir}/docker /var/lib/docker
+systemctl restart docker
 
 # 宿主机上部署jdk和maven
 prog=$(rpm -qa|grep java | wc -l)
