@@ -88,8 +88,17 @@ yum -y install lrzsz && yum -y install openssh-clients && yum -y install telnet 
 # 防火墙配置
 setenforce 0
 sed -i 's/enforcing/disabled/g' /etc/selinux/config
-sed -i 's/enforcing/disabled/g' /etc/sysconfig/selinux
-
+sed -i 's/enforcing/disabled/g' /etc/sysconfig/selinux 
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl daemon-reload
+# 时区同步
+if [ ! -f "/etc/localtime" ];then  
+        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+fi  
+if [ ! -f "/etc/timezone" ];then  
+        echo "Asia/Shanghai" > /etc/timezone
+fi  
 sleep 5
 echo "yum and docker are ok!!!"
 sleep 5
