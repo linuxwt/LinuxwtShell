@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ $# -ne 1 ];then
+    echo "you need add a 项目部署目录名字 after the scripts name."
+    exit -1
+fi
 project_dir="$1"
 # 更换yum源并安装docker、docker-compose
 yum -y install wget
