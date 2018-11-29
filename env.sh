@@ -1,10 +1,7 @@
 #!/bin/bash
 
-if [ $# -ne 1 ];then
-    echo "you need add a 项目部署目录名字 after the scripts name."
-    exit -1
-fi
 project_dir="$1"
+species_name="$2"
 # 更换yum源并安装docker、docker-compose
 yum -y install wget
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
@@ -92,92 +89,17 @@ yum -y install lrzsz && yum -y install openssh-clients && yum -y install telnet 
 # 防火墙配置
 setenforce 0
 sed -i 's/enforcing/disabled/g' /etc/selinux/config
-sed -i 's/enforcing/disabled/g' /etc/sysconfig/selinux 
+sed -i 's/enforcing/disabled/g' /etc/sysconfig/selinux
 systemctl stop firewalld
 systemctl disable firewalld
 systemctl daemon-reload
-# 时区同步
-if [ ! -f "/etc/localtime" ];then  
-        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-fi  
-if [ ! -f "/etc/timezone" ];then  
-        echo "Asia/Shanghai" > /etc/timezone
-fi  
+
+# 更改docker存储位置
+cp -r /var/lib/docker ${project_dir}
+rm -Rf /var/lib/docker
+ln -s ${project_dir}/docker /var/lib/docker
+systemctl restart docker
+
 sleep 5
 echo "yum and docker are ok!!!"
 sleep 5
-
-# 安装jdk、maven
-tomcat_dir="/${project_dir}/gooalgene/java"
-if [ ! -d ${tomcat_dir} ];then
-    mkdir -p ${tomcat_dir}
-else
-    mv ${tomcat_dir} ${tomcat_dir}.bak
-    mkdir -p ${tomcat_dir}
-fi
-# 更改docker存储位置
-cp -r /var/lib/docker /${project_dir}
-rm -Rf /var/lib/docker
-ln -s /${project_dir}/docker /var/lib/docker
-systemctl restart docker
-
-# 宿主机上部署jdk和maven
-prog=$(rpm -qa|grep java | wc -l)
-if [ ${prog} -gt 0 ];then
-    echo "the system have java,next we uninstall it and install new."
-    sleep 5
-    rpm -qa|grep java | xargs rpm -e --nodeps 
-else
-    echo "you need installed java"
-fi
-cd ${tomcat_dir}
-
-wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-x64.tar.gz
-tar zvxf jdk-8u192-linux-x64.tar.gz
-mv jdk1.8.0_192 jdk1.8
-wget  http://apache.fayea.com/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-tar zvxf apache-maven-3.5.4-bin.tar.gz
-mv apache-maven-3.5.4 maven3.5
-# 加入环境变量
-cp /etc/profile /etc/profile.bak
-cat <<EOF>> /etc/profile
-export JAVA_HOME=/${project_dir}/gooalgene/java/jdk1.8 MAVEN_HOME=/${project_dir}/gooalgene/java/maven3.5
-export CLASSPATH=.:\$JAVA_HOME/jre/lib/rt.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
-export PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH 
-EOF
-
-
-sleep 3
-echo "jdk and maven are ok!!!"
-sleep 3
-
-
-# 安装mysql、mongodb客户端
-wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-community-common-5.7.24-1.el7.x86_64.rpm 
-wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-community-libs-5.7.24-1.el7.x86_64.rpm
-wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-community-libs-compat-5.7.24-1.el7.x86_64.rpm
-wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-community-client-5.7.24-1.el7.x86_64.rpm
-
-mariadb_num=$(rpm -qa|grep mariadb | wc -l)
-if [ ${mariadb_num} -eq 0 ];then
-    echo "you can install mysql."
-else
-    rpm -qa | grep mariadb | xargs rpm -e --nodeps
-fi
-rpm -ivh  mysql-community-common-5.7.24-1.el7.x86_64.rpm
-rpm -ivh  mysql-community-libs-5.7.24-1.el7.x86_64.rpm
-rpm -ivh  mysql-community-libs-compat-5.7.24-1.el7.x86_64.rpm
-rpm -ivh  mysql-community-client-5.7.24-1.el7.x86_64.rpm
-
-wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-rhel70-3.6.6.tgz  
-tar vxf mongodb-linux-x86_64-rhel70-3.6.6.tgz  
-mv mongodb-linux-x86_64-rhel70-3.6.6 /usr/local/mongodb
-cat <<EOF>> /etc/profile
-export MONGODB_HOME=/usr/local/mongodb 
-export PATH=\$MONGODB_HOME/bin:\$PATH 
-EOF
-
-
-sleep 3
-echo "mysql and mongodb client are ok!!!"
-sleep 3
