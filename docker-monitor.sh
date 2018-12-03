@@ -23,5 +23,5 @@ if [ ${content_num} -eq 0  ];then
     exit -1
 else 
     echo "${content}" | mail -s "东北农林研究所服务器192.168.5.204" 439757183@qq.com
-    echo "${content}" | mail -s "东北农林研究所服务器192.168.5.204" 165055682@qq.com
+    echo "${content}" | mail -s "东北农林研究所服务器192.168.5.204" 2847602965@qq.com
 fi
