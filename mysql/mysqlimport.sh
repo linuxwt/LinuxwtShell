@@ -26,11 +26,20 @@ LOG="${yingshe_dir}/${dbname}/import.log"
 # 导入开始时间
 TIME1=$(date +%Y%m%d_%R)
 
+# 创建存放带有外键的表名文件
+if [ -f "${yingshe_dir}/${dbname}/foreign_table" ];then
+    cp ${yingshe_dir}/${dbname}/foreign_table ${yingshe_dir}/${dbname}/foreign_table.bak
+    touch ${yingshe_dir}/${dbname}/foreign_table
+else
+    touch ${yingshe_dir}/${dbname}/foreign_table
+fi
+
 # 循环导入每一个表的结构和数据
 table_array=(${table_name})
 for table in ${table_array[@]}
 do
 # 导入表结构
+echo "current table structure:"${table}
 mysql -u ${username2} -h ${Host}  -p${password2} -P ${port} ${dbname} <  ${yingshe_dir}/${dbname}/${table}.sql
 
 # 查看表是否有外键
@@ -38,8 +47,10 @@ foreign_num=$(docker exec ${container_name} mysql -u${username2} -p${password2} 
 
 if [ ${foreign_num} -eq 0 ];then
 # 导入表数据
+echo "current table data:"${table}
 docker exec ${container_name} mysql -u${username2} -p${password2} -e "use ${dbname};LOAD DATA INFILE '${secure_dir}/${dbname}/${table}.txt' INTO TABLE ${table} FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'  LINES TERMINATED BY '\n';"
 else
+echo ""current table foreign key:"${table}
 echo "${table}" >> ${yingshe_dir}/${dbname}/foreign_table 
 fi
 done
