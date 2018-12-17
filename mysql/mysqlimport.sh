@@ -39,7 +39,7 @@ table_array=(${table_name})
 for table in ${table_array[@]}
 do
 # 导入表结构
-echo "current table structure:"${table}
+echo "current table structure:${table}"
 mysql -u ${username2} -h ${Host}  -p${password2} -P ${port} ${dbname} <  ${yingshe_dir}/${dbname}/${table}.sql
 
 # 查看表是否有外键
@@ -47,10 +47,10 @@ foreign_num=$(docker exec ${container_name} mysql -u${username2} -p${password2} 
 
 if [ ${foreign_num} -eq 0 ];then
 # 导入表数据
-echo "current table data:"${table}
+echo "current table data:${table}"
 docker exec ${container_name} mysql -u${username2} -p${password2} -e "use ${dbname};LOAD DATA INFILE '${secure_dir}/${dbname}/${table}.txt' INTO TABLE ${table} FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'  LINES TERMINATED BY '\n';"
 else
-echo ""current table foreign key:"${table}
+echo "current table foreign key:${table}"
 echo "${table}" >> ${yingshe_dir}/${dbname}/foreign_table 
 fi
 done
