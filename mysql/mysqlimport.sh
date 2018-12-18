@@ -28,7 +28,7 @@ TIME1=$(date +%Y%m%d_%R)
 
 # 创建存放带有外键的表名文件
 if [ -f "${yingshe_dir}/${dbname}/foreign_table" ];then
-    cp ${yingshe_dir}/${dbname}/foreign_table ${yingshe_dir}/${dbname}/foreign_table.bak
+    mv ${yingshe_dir}/${dbname}/foreign_table ${yingshe_dir}/${dbname}/foreign_table.bak
     touch ${yingshe_dir}/${dbname}/foreign_table
 else
     touch ${yingshe_dir}/${dbname}/foreign_table
