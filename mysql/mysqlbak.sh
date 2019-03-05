@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 本脚本用于容器部署的mysql备份
+####本脚本用于容器部署的mysql本地备份###
 CONTAINER_NAME="容器名"
 DIR=`date +%Y%m%d`
 BACKDIR="/data/bak/"
