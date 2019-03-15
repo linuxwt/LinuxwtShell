@@ -1,1 +1,1 @@
-# 这个仓库主要是存放自己日常编写的一些混合实用脚本，不像其他的仓库固定的实现某一功能，该仓库的中的有些脚本能同时实现很多功能，比如有个叫mysqlandmongo.sh的脚本可以一键部署docker docker-compose iptables mysql mongodb等
+# 这个仓库主要是存放自己日常编写的一些脚本
