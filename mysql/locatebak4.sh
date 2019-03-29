@@ -22,7 +22,7 @@ done
 
 updatedb
 
-IP="47.97.61.65"
+IP="***"
 LOG="/data/bak.log"
 TIME1=`date +%Y%m%d_%R`
 >$LOG
