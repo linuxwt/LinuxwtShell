@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 有9个物种，每一个物种含有多条基因，一共有50个基因，现在要求把这些基因数据分库备份，并针对每一个物种的每一条基因建立备份目录，比如将物种1_8-12_server的
-# 基因acdb备份在目录/data/mushbak/mushroom/1_8-12_server下，以此类推
+# 基因acdb备份在目录/data/mushbak/mushroom/1_8-12_server/acdb下，以此类推
 
 dir=(1_8-12_server 2_14-17_server 3_18-22_server 4_23-27_server 5_28-32_server 6_33-37_server 7_38-42_server 13_43-47_server 48-51_server)
 
