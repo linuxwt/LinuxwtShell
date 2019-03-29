@@ -39,7 +39,7 @@ do
             if [ -d ${diar} ];then
                 cd ${diar}
                 p=${diar}
-                docker exec  mysql_core mysqldump  -uroot -pgooalgene@mushroom  $dbname > ./mysql_${dbname}_${TIME1}.sql
+                docker exec  mysql_core mysqldump  -u*** -p***  $dbname > ./mysql_${dbname}_${TIME1}.sql
                 if [ $? -eq  0 ];then
                     TIME2=`date +%Y%m%d_%R`
                     echo "name：${dbname}" >> $LOG
@@ -65,7 +65,7 @@ do
             if [ -d ${ditr} ];then
                 cd ${ditr}
                 q=${ditr}
-                docker exec  mysql_core mysqldump  -uroot -pgooalgene@mushroom  $dbname > ./mysql_${dbname}_${TIME1}.sql
+                docker exec  mysql_core mysqldump  -u*** -p***  $dbname > ./mysql_${dbname}_${TIME1}.sql
                 if [ $? -eq  0 ];then
                     TIME2=`date +%Y%m%d_%R`
                     echo "name：${dbname}" >> $LOG
