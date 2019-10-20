@@ -5,7 +5,7 @@ yum -y install ntp ntpdate
 ntpdate ntp1.aliyun.com
 ntpdate ntp2.aliyun.com
 
-# 这里获取主机网络段，假设这里是3位网络号，子网掩码是255.255.255.0
+# 这里获取主机网络段，假设这里是24位网络号，子网掩码是255.255.255.0
 netcard=$(ls /etc/sysconfig/network-scripts/ | grep ifcfg | grep -v lo)
 card=${netcard//ifcfg-/}
 ip_net=$(ip addr | grep ens33 | grep inet | awk '{print $2}')
