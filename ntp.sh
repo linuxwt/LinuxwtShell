@@ -8,7 +8,7 @@ ntpdate ntp2.aliyun.com
 # 这里获取主机网络段，假设这里是24位网络号，子网掩码是255.255.255.0
 netcard=$(ls /etc/sysconfig/network-scripts/ | grep ifcfg | grep -v lo)
 card=${netcard//ifcfg-/}
-ip_net=$(ip addr | grep ens33 | grep inet | awk '{print $2}')
+ip_net=$(ip addr | grep $card | grep inet | awk '{print $2}')
 ip=${ip_net//\/24/}
 a=$(echo $ip | awk -F '.' '{print $1}')
 b=$(echo $ip | awk -F '.' '{print $2}')
