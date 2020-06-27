@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#####监控service，失败的进行重新部署#####
+#####监控service，失败的进行重新部署该脚本要结合我的博客文章https://linuxwt.com/gou-jian-ji-yu-dockerde-wei-fu-wu###
 service_delete () {
     docker service rm $service
     sleep 5
