@@ -33,3 +33,6 @@ do
         [[  ${q_exist} -eq 1 && ${q_state} -eq 0 ]] && { echo "$service deploy failed";exit -1; }
     fi
 done
+
+prob=$( docker service ls | awk '{print $4}' | grep 0 | wc -l)
+[ "$prob" -eq 0 ] && bash $0 || exit 0
