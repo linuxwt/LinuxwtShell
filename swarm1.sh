@@ -35,4 +35,4 @@ do
 done
 
 prob=$( docker service ls | awk '{print $4}' | grep 0 | wc -l)
-[ "$prob" -eq 0 ] && bash $0 || exit 0
+[ "$prob" -eq 0 ] && bash $(dirname $0)/$0 || exit 0
